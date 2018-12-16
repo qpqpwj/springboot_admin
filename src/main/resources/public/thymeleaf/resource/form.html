@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>不迷失-Admin 权限管理</title>
+    <div th:replace="head"></div>
+    <script type="text/javascript" th:inline="javascript">
+
+        /*<![CDATA[*/
+        function ajaxSubmit(){
+            console.info("ok");
+            var data =  $('#formresource').serialize();
+
+            $.ajax({
+                url: [[@{${api}}]],
+            type: 'post',
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $('#formreource').serialize(),// 序列化表单值
+                // data: data,
+                async: false,
+                success: function(data){
+                    console.info(data);
+                if(data != null){
+                    alert('code : ' + data.code + " , msg : " + data.msg);
+                }
+            }
+        });
+        }
+
+        /*]]>*/
+
+
+    </script>
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini ">
+<div class="wrapper">
+
+    <div th:replace="header"></div>
+    <div th:replace="sidebar"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Horizontal Form -->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">权限管理</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <!--th:action="@{${api}}" method="post"-->
+                        <form id="formresource" class="form-horizontal">
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">名称</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" name="title" th:value="${resource}? ${resource.title}"
+                                               class="form-control" id="title" placeholder=""
+                                               required="required" maxlength="30"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">url</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" name="url" th:value="${resource}? ${resource.url}"
+                                               class="form-control" id="url" placeholder=""
+                                               required="required" maxlength="100"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">描述</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" name="description" th:value="${resource}? ${resource.description}"
+                                               class="form-control" id="description" placeholder=""
+                                               maxlength="50"/>
+                                    </div>
+                                </div>
+
+
+
+                                <br/><br/>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer" style="text-align: center;">
+
+                                <button onclick="ajaxSubmit()" type="submit" class="btn btn-info">Submit</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                    <!-- /.box -->
+
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="footer"></div>
+</div>
+<!-- ./wrapper -->
+<div th:replace="script"></div>
+
+</body>
+</html>
